@@ -15,6 +15,9 @@
                         <i class="bi bi-star-half"></i>
                     </div>
                     <div>
+                        <p class="my-1 fs-4"><strong>Nopal Salto</strong></p>
+                    </div>
+                    <div>
                         <p class="mb-0"><strong>A must buy for every aspiring web dev</strong></p>
                     </div>
                     <p class="mt-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta vero quo velit suscipit, assumenda eum quia blanditiis ut eligendi ipsam!</p>
@@ -29,6 +32,9 @@
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
+                    </div>
+                    <div>
+                        <p class="my-1 fs-4"><strong>Dinda Gunawan Wibowo</strong></p>
                     </div>
                     <div>
                         <p class="mb-0"><strong>A must buy for every aspiring web dev</strong></p>
