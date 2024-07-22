@@ -1,5 +1,8 @@
 <?php
+require_once '../config/connection.php';
 require_once 'layouts/head.php';
+$select = mysqli_query($conn,"SELECT * FROM intro WHERE status = 1");
+$row = mysqli_fetch_assoc($select);
 ?>
 <?php
 require_once 'layouts/navbar.php';
