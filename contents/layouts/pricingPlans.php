@@ -1,6 +1,9 @@
 <?php
     $pricing = mysqli_query($conn, "SELECT * FROM pricing");
     $rowPricce = mysqli_fetch_all($pricing, MYSQLI_ASSOC);
+    $id = $row['id'];
+    // var_dump($rowPricce);
+    $selectPricing = mysqli_query($conn, "SELECT * FROM pricing WHERE id_intro= $id");                  
 ?>
 <div class="bg-light" id="pricing">
 
@@ -10,59 +13,31 @@
     </div>
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-
+            <?php 
+            if(mysqli_num_rows($pricing) > 0):
+                foreach ($rowPricce as $prices):
+            ?>
             <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="<?=$prices['card_class']?>">
                     <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Free</h4>
+                        <h4 class="my-0 fw-normal"><?=$prices['pilihedisi']?></h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">RP. 0 <small class="text-muted">/ mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>10 users included</li>
-                            <li>2 GB of storage</li>
-                            <li>Email support</li>
-                            <li>Help center access</li>
-                        </ul>
-                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                        <h3><?=$prices['header']?><span class="ms-3"><i class="bi bi-star-fill"></i></span></h3>
+                        <h1 class="card-title pricing-card-title">RP.
+                            <?=number_format($prices['harga'],2,".",",")."-"?><small class="text-muted">/
+                                mo</small></h1>
+                        <p><?=$prices['deskripsi']?></p>
+                        <button type="button" class="<?=$prices['btn_class']?>">Sign up for free</button>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Pro</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">Rp. 100.000 <small class="text-muted">/ mo</small>
-                        </h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>20 users included</li>
-                            <li>10 GB of storage</li>
-                            <li>Priority email support</li>
-                            <li>Help center access</li>
-                        </ul>
-                        <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Enterprise</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>30 users included</li>
-                            <li>15 GB of storage</li>
-                            <li>Phone and email support</li>
-                            <li>Help center access</li>
-                        </ul>
-                        <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
-                    </div>
-                </div>
-            </div>
+            <?php
+            endforeach;
+        else:
+            echo "No data available";
+        endif;
+            ?>
         </div>
     </div>
 </div>

@@ -1,3 +1,10 @@
+<?php
+    $selectAc = mysqli_query($conn, "SELECT * FROM accordion");
+    $rowAc=mysqli_fetch_all($selectAc,MYSQLI_ASSOC);
+    $id = $row['id'];
+    $selectAcro = mysqli_query($conn,"SELECT * FROM accordion WHERE id_intro=$id");
+?>
+
 <div class="container py-5">
     <div class="text-center py-4">
         <h1 class="display-6   text-bold fw-2">Inside The Box ...</h1>
@@ -9,42 +16,32 @@
         </div>
         <div class="col-sm">
             <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Chapter 1 - You First Web Page
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro dignissimos cupiditate
-                            eveniet iure, ex facilis qui accusantium suscipit error incidunt officiis hic ipsa! Iusto,
-                            tempore dolorum, minus sed sit vitae quasi laborum deleniti magnam illum ducimus enim ad
-                            architecto odio!
-                        </div>
-                    </div>
-                </div>
+                <?php
+                if(mysqli_num_rows($selectAc)>0):
+                    foreach ($rowAc as $rowAcs):     
+                ?>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Chapter 2 - You Second Web Page
+                            data-bs-target="#collapseTwo<?=$rowAcs['id']?>" aria-expanded="false"
+                            aria-controls="collapseTwo<?=$rowAcs['id']?>">
+                            <?=$rowAcs['judul']?>
                         </button>
                     </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                        data-bs-parent="#accordionExample">
+                    <div id="collapseTwo<?=$rowAcs['id']?>" class="accordion-collapse collapse"
+                        aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until
-                            the collapse plugin adds the appropriate classes that we use to style each element. These
-                            classes control the overall appearance, as well as the showing and hiding via CSS
-                            transitions. You can modify any of this with custom CSS or overriding our default variables.
-                            It's also worth noting that just about any HTML can go within the
-                            <code>.accordion-body</code>, though the transition does limit overflow.
+                            <?=$rowAcs['descs']?>
                         </div>
                     </div>
                 </div>
+                <?php
+                endforeach;
+                    else:
+                        echo "No data available";
+                    endif;
+
+                ?>
             </div>
         </div>
     </div>
