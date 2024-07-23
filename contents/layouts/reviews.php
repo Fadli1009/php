@@ -1,8 +1,21 @@
 <?php 
-$getReviews = mysqli_query($conn, "SELECT * FROM review");
-$fetchReview = mysqli_fetch_all($getReviews,MYSQLI_ASSOC);
+// $getReviews = mysqli_query($conn, "SELECT * FROM review");
 $id = $row['id'];
 $getReviewsbyID = mysqli_query($conn,"SELECT * FROM review WHERE id_intro=$id");
+$fetchReview = mysqli_fetch_all($getReviewsbyID,MYSQLI_ASSOC);
+
+function renderStar($rating){
+    
+    $fullstars = floor($rating);
+    $halfstars = ($rating - $fullstars)>= 0.5 ? true :false;
+    $starHtml = str_repeat('<i class="bi bi-star-fill"></i>',$fullstars);
+    if($halfstars){
+        
+        $starHtml.='<i class="bi bi-star-half"></i>';
+    }
+    $starHtml.= str_repeat('<i class="bi bi-star"></i>',5-$fullstars - ($halfstars ? 1:0));
+    return $starHtml;
+}
 ?>
 
 <div class="bg-light" id="reviews">
@@ -13,7 +26,7 @@ $getReviewsbyID = mysqli_query($conn,"SELECT * FROM review WHERE id_intro=$id");
         </div>
         <div>
             <?php
-            if(mysqli_num_rows($getReviews)>0):
+            if(mysqli_num_rows($getReviewsbyID)>0):
                 foreach ($fetchReview as $fetchReviews) :
             ?>
             <div class="review-card bg-white border rounded shadow-sm ">
@@ -28,11 +41,12 @@ $getReviewsbyID = mysqli_query($conn,"SELECT * FROM review WHERE id_intro=$id");
                     <p class="mt-2"><?=$fetchReviews['deskripsi']?></p>
                     <small class="text-muted"><?=$fetchReviews['nama']?>
                         <div>
+                            <?=renderStar($fetchReviews['rating'])?>
+                            <!-- <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star-half"></i> -->
                         </div>
                     </small>
                 </div>

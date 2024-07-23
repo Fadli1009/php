@@ -1,9 +1,10 @@
 <?php
-    $pricing = mysqli_query($conn, "SELECT * FROM pricing");
-    $rowPricce = mysqli_fetch_all($pricing, MYSQLI_ASSOC);
-    $id = $row['id'];
+    // $pricing = mysqli_query($conn, "SELECT * FROM pricing");
+    // $rowPricce = mysqli_fetch_all($pricing, MYSQLI_ASSOC);
     // var_dump($rowPricce);
+    $id = $row['id'];
     $selectPricing = mysqli_query($conn, "SELECT * FROM pricing WHERE id_intro= $id");                  
+    $rowPricce = mysqli_fetch_all($selectPricing, MYSQLI_ASSOC);
 ?>
 <div class="bg-light" id="pricing">
 
@@ -14,7 +15,7 @@
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
             <?php 
-            if(mysqli_num_rows($pricing) > 0):
+            if(mysqli_num_rows($selectPricing) > 0):
                 foreach ($rowPricce as $prices):
             ?>
             <div class="col">
